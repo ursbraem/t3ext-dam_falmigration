@@ -42,7 +42,7 @@ The available migration tasks can be found under the *extbase* cliKey:
 	                                           file:29643 -
 	                                           download>Linktext</link>
 	  dammigration:migratedamcategories        Migrate DAM categories to FAL
-                                           categories
+                                                   categories
 	  dammigration:migratedamcategoriestofalcollections migrate all DAM categories to
 	                                           sys_file_collection records,
 	  dammigration:migratecategoryrelations    Migrate DAM Category Relations
