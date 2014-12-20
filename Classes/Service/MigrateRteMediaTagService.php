@@ -95,7 +95,7 @@ class MigrateRteMediaTagService extends AbstractService {
 						list($linkTarget, $linkClass, $linkTitle) = explode(' ', trim($result[5]), 3);
 						$linkText = $result[6];
 					}
-					$this->controller->message('Replacing "' . $result[0] . '" with DAM UID ' . $damUid . ' (target ' . $linkTarget . '; class ' . $linkClass . '; title "' . $linkTitle . '") and linktext "' . $linkText . '"');
+					$this->parent->message('Replacing "' . $result[0] . '" with DAM UID ' . $damUid . ' (target ' . $linkTarget . '; class ' . $linkClass . '; title "' . $linkTitle . '") and linktext "' . $linkText . '"');
 					/**
 					 * after migration of DAM-Records we can find sys_file-UID with help of
 					 * DAM-UID fetch the DAM uid from sys_file and replace the full tag with a
