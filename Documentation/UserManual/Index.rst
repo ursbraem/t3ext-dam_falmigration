@@ -29,27 +29,44 @@ The available migration tasks can be found under the *extbase* cliKey:
 
 	EXTENSION "DAM_FALMIGRATION":
 	-------------------------------------------------------------------------------
-	  dammigration:connectdamrecordswithsysfile goes through all DAM files and
-	                                           checks if they have a counterpart in
-	                                           the sys_file
-	  dammigration:migratedammetadata          migrates DAM metadata to FAL
-	                                           metadata
+	  dammigration:migratedamrecords           Migrates all DAM records to FAL. A
+	                                           DB field "_migrateddamuid" connects
+	                                           each FAL record to the original DAM
+	                                           record.
+	  dammigration:migratedammetadata          Migrates DAM metadata to FAL
+        	                                   metadata. Searches for all migrated
+                	                           sys_file records that don't have any
+                	                           titles yet.
 	  dammigration:migratemediatagsinrte       Migrates the <media DAM_UID target
 	                                           title>Linktext</media> to <link
 	                                           file:29643 -
 	                                           download>Linktext</link>
 	  dammigration:migratedamcategories        Migrate DAM categories to FAL
-	                                           categories
+                                           categories
 	  dammigration:migratedamcategoriestofalcollections migrate all DAM categories to
 	                                           sys_file_collection records,
+	  dammigration:migratecategoryrelations    Migrate DAM Category Relations
 	  dammigration:migratedamfrontendplugins   migrate all damfrontend_pi1 plugins
-	                                           to tt_content.uploads with
-	                                           file_collection
-	  dammigration:cleanupduplicatefalcollectionreferences checks if there are multiple entries
-	                                           in sys_file_reference that contain
+                                	           to tt_content.uploads with
+                        	                   file_collection usually used in
+                	                           conjunction with / after
+        	                                   migrateDamCategoriesToFalCollections
+  	                                           Command()
+	  dammigration:cleanupduplicatefalcollectionreferences Checks if there are multiple entries
+                                	           in sys_file_reference that contain
+                        	                   the same uid_local and uid_foreign
+                	                           with sys_file_collection references
+        	                                   and removes the duplicates
 	  dammigration:updatereferenceindex        updates the reference index
 	  dammigration:migraterelations            migrate relations to dam records
-	                                           that dam_ttcontent
+                	                           that dam_ttcontent and dam_uploads
+        	                                   introduced
+	  dammigration:migrateselections           Migrates all available DAM
+                	                           Selections in sys_file_collections
+        	                                   (only folder based selections for
+	                                           now).
+	  dammigration:migratedamttnews            Migrates tt_news records enriched
+	                                           with DAM fields to FAL.
 
 
 .. note::
@@ -73,7 +90,7 @@ A sys_file record that was migrated from tx_dam holds the uid of the original tx
 
 .. code-block:: bash
 
-	php typo3/cli_dispatch.phpsh extbase dammigration:connectdamrecordswithsysfile
+	php typo3/cli_dispatch.phpsh extbase dammigration:migratedamrecords
 
 Step 2: Migrate metadata
 ========================
